@@ -3,6 +3,7 @@ import * as Component from "./App.styles"
 
 import { Item } from "./types/Item"
 import { ListItem } from "./components/ListItem"
+import { AddArea } from "./components/AddArea"
 
 const App = () => {
   const [list, setList] = useState<Item[]>([
@@ -18,14 +19,23 @@ const App = () => {
     },
   ]);
 
+  const handleAddTask = (taskName: string) => {
+    let newList = [...list];
+    newList.push({
+      id: list.length + 1,
+      name: taskName,
+      done: false,
+    });
+    setList(newList);
+  };
+
 
   return (
     <Component.Container>
       <Component.Area>
         <Component.Header>Lista de Tarefas</Component.Header>
 
-        {/* Area para adicionar nova tarefa*/}
-
+        <AddArea onEnter={handleAddTask} />
 
         {list.map((item, index) => (
           // <div>{item.name}</div>
